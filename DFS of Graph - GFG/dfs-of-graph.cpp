@@ -7,11 +7,11 @@ class Solution {
   public:
     // Function to return a list containing the DFS traversal of the graph.
     
-    void dfss(int node,vector<int> adj[],vector<int> &dfs,vector<int> &v)
+    void dfss(int i,vector<int> adj[],vector<int> &dfs,vector<int> &v)
     {
-        dfs.push_back(node);
-        v[node]=1;
-        for(auto j:adj[node])
+        dfs.push_back(i);
+        v[i]=1;
+        for(auto j:adj[i])
         {
             if(!v[j])
               dfss(j,adj,dfs,v);
