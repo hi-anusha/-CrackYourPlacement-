@@ -7,7 +7,8 @@ class Solution {
   public:
     // Function to detect cycle in an undirected graph.
     
-    bool helper(int src,vector<bool> &vis,vector<int> adj[],int parent){
+    bool helper(int src,vector<bool> &vis,vector<int> adj[],int parent)
+    {
         vis[src] = true;
         for(auto x : adj[src]){
             if(!vis[x]){
