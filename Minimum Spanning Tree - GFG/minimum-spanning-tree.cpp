@@ -11,7 +11,7 @@ class Solution
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
     int spanningTree(int V, vector<vector<int>> adj[])
     {
-        vector<int> key(V, INT_MAX);
+       vector<int> key(V, INT_MAX);
        vector<bool> MST(V,false );
        vector<int> parent(V,-1 );
        key[0] = 0;
