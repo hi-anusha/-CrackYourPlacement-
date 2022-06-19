@@ -22,6 +22,7 @@ public:
    void dfs(TreeNode* root, string path, vector<string>& res) {
         if (root->left == NULL && root->right == NULL) {
             res.push_back(path);
+            return;
         }
         
         if (root->left != NULL)
