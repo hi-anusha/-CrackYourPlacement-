@@ -11,36 +11,19 @@
  */
 class Solution {
 public:
-    void anu(TreeNode* root,vector<int>& v)
-    {
-        if(root==NULL)
-            return;
-        anu(root->left,v);
-        v.push_back(root->val);
-        anu(root->right,v);
-    }
+    TreeNode* prev = NULL;
     bool isValidBST(TreeNode* root) {
-        int f=1;
-        vector<int> v;
-        anu(root,v);
-        for(int i=0;i<v.size()-1;i++)
-        {
-            cout<<v[i]<<" ";
-            if(v[i]==v[i+1])
-            {
-                f=0;
-                break;
-            }
-           if(v[i] > v[i+1])
-           {
-                f=0;
-                break;
-           }
-        }
+        if(!root) return true;
         
-        if(f==0)
+        if(!isValidBST(root->left))
             return false;
         
-            return true;
+        if(prev && prev->val >= root->val) return false;
+        prev = root;
+        
+        if(!isValidBST(root->right))
+            return false;
+        
+        return true;
     }
 };
