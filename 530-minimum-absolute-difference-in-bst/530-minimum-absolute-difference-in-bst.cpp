@@ -12,15 +12,22 @@
 class Solution {
 public:
     int d=INT_MAX;
-    
+    TreeNode* prev=NULL;
     vector<int> v;
     void f(TreeNode* root)
     {
         if(root==NULL)
             return;
         
+       
         f(root->left);
-        v.push_back(root->val);
+         
+        if (prev != NULL) {
+            d = min(d, root->val - prev->val);
+        }
+        prev = root;
+     
+    
         f(root->right);
     }
     
@@ -29,11 +36,6 @@ public:
     int getMinimumDifference(TreeNode* root)
     {
         f(root);  
-        
-        for(int i=0;i<v.size()-1;i++)
-        {
-            d=min(d,v[i+1]-v[i]);
-        }
         return d;
     }
 };
