@@ -36,11 +36,9 @@ public:
         
         
         
-        maxi=max(maxi,lh+rh);
+        maxi=max(max(diameterOfBinaryTree(root->left),diameterOfBinaryTree(root->right)),lh+rh);
         
-        int ld=diameterOfBinaryTree(root->left);
-        int rd=diameterOfBinaryTree(root->right);
-        
+       
         cout<<lh<<" "<<rh<<" ";
         return maxi;
         
