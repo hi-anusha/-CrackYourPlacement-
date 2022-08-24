@@ -1,4 +1,4 @@
-class Solution {
+class Solution {         //brute force - O(NlogN)
 public:
     int findDuplicate(vector<int>& nums) 
     {
