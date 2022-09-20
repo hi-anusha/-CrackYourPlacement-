@@ -3,52 +3,51 @@
  * struct TreeNode {
  *     int val;
  *     TreeNode *left;
- *     TreeNode *right;                
+ *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution 
-{
+class Solution {
 public:
     
-    vector<vector<int>> ans;
-    vector<int> v;
-    
-    void f(TreeNode* root,int sum,int target)
+    int sum=0;
+    void f(TreeNode* root,int tsum,vector<int>&v,vector<vector<int>>& ans)
     {
         if(root==NULL)
             return;
         
         v.push_back(root->val);
+        sum+=root->val;
         
         if(root->left==NULL && root->right==NULL)
         {
-            sum=sum+root->val;
-            if(sum==target)
+            cout<<sum<<" "<<tsum<<"\n";
+            if(sum==tsum)
             {
                 ans.push_back(v);
-                
             }
+            //return;
         }
         
-        if(root->left)
-        {
-            f(root->left,sum+root->val,target);
-        }
         
-        if(root->right)
-        {
-            f(root->right,sum+root->val,target);
-        }
+        f(root->left,tsum,v,ans);
+        
+        
+        f(root->right,tsum,v,ans);
         
         v.pop_back();
+        sum-=root->val;
+        
     }
     
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) 
     {
-        f(root,0,targetSum);        
+        vector<int> v;
+        vector<vector<int>> ans;
+        
+        f(root,targetSum,v,ans);
         return ans;
     }
 };
