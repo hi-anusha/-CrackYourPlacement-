@@ -13,7 +13,7 @@ class Solution {
 public:
     
     int sum=0;
-    void f(TreeNode* root,int tsum,vector<int>&v,vector<vector<int>>& ans)
+    void f(TreeNode* root,int &tsum,vector<int>&v,vector<vector<int>>& ans)
     {
         if(root==NULL)
             return;
