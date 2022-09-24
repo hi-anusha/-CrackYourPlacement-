@@ -9,29 +9,26 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
 class Solution {
     
 public:
-    
-    void f(TreeNode* root,int k,vector<int>& v)
+    void f(TreeNode* root,int k,int &c,int &ans)
     {
-        if(root==NULL)
+        if(root==NULL) return;
+        f(root->left,k,c,ans);
+        c++;
+        if(c == k){
+            ans = root->val;
             return;
-        
-        f(root->left,k,v);
-        
-        v.push_back(root->val);
-        
-        f(root->right,k,v);
-        
+        }
+        f(root->right,k,c,ans);
     }
     
     int kthSmallest(TreeNode* root, int k) 
     {
-        vector<int> v;
-        f(root,k,v);
-        for(auto i:v)
-            cout<<i<<" ";
-        return v[k-1];
+        int c=0,ans=-1;
+        f(root,k,c,ans);   
+        return ans;
     }
 };
