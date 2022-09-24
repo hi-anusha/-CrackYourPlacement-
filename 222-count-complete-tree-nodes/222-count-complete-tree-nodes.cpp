@@ -22,9 +22,10 @@ public:
         
         f(root->left,c);
         
-         c++;
         
         f(root->right,c);
+        
+        c++;
         
     }
     
