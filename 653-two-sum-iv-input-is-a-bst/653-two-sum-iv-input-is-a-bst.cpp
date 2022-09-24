@@ -9,41 +9,57 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+
+class BSTIterator {
+    stack<TreeNode *> myStack;
+    bool reverse = true; 
+public:
+    BSTIterator(TreeNode *root, bool isReverse) {
+        reverse = isReverse; 
+        pushAll(root);
+    }
+
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return !myStack.empty();
+    }
+
+    /** @return the next smallest number */
+    int next() {
+        TreeNode *tmpNode = myStack.top();
+        myStack.pop();
+        if(!reverse) pushAll(tmpNode->right);
+        else pushAll(tmpNode->left);
+        return tmpNode->val;
+    }
+
+private:
+    void pushAll(TreeNode *node) {
+        for(;node != NULL; ) {
+             myStack.push(node);
+             if(reverse == true) {
+                 node = node->right; 
+             } else {
+                 node = node->left; 
+             }
+        }
+    }
+};
 class Solution {
 public:
-    
-    void f(TreeNode* root,int k,vector<int>& v)
-    {
-        if(root==NULL)
-            return;
+    bool findTarget(TreeNode* root, int k) {
+        if(!root) return false; 
+        BSTIterator l(root, false); 
+        BSTIterator r(root, true); 
         
-        v.push_back(root->val);
-        
-        f(root->left,k,v);
-        f(root->right,k,v);
-    }
-    
-    bool f1(vector<int>& v,int k)
-    {
-        map<int,int> mp;
-        for(int i=0;i<v.size();i++)
-        {
-            if(mp.find(k-v[i])==mp.end())
-            {
-                mp[v[i]]=i;
-            }
-            else
-            {
-                return true;
-            }
+        int i = l.next(); 
+        int j = r.next(); 
+        while(i<j) {
+            if(i + j == k) return true; 
+            else if(i + j < k) i = l.next(); 
+            else j = r.next(); 
         }
-        return false;
-    }
-    
-    bool findTarget(TreeNode* root, int k) 
-    {
-        vector<int> v;
-        f(root,k,v);
-        return f1(v,k);
+        return false; 
     }
 };
