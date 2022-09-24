@@ -17,11 +17,12 @@ public:
         if(root==NULL)
             return;
         
-        c++;
+       
         
         
         f(root->left,c);
         
+         c++;
         
         f(root->right,c);
         
