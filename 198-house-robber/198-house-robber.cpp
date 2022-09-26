@@ -12,7 +12,7 @@ public:
        
         pick=nums[ind]+f(nums,ind-2,dp);
        
-         dpp=0+f(nums,ind-1,dp);
+         dpp=f(nums,ind-1,dp);
         return dp[ind]=max(pick,dpp);
     }
     
