@@ -1,4 +1,5 @@
-class Solution {
+class Solution 
+{
 public:
     vector<int> sortEvenOdd(vector<int>& nums)
     {
@@ -10,6 +11,7 @@ public:
             else
             odd.push_back(nums[i]);
         }
+        
         sort(even.begin(),even.end());
         sort(odd.begin(),odd.end(), greater<int>());
         
