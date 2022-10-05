@@ -1,28 +1,65 @@
-class Solution {
+class Solution 
+{
 public:
-    int orangesRotting(vector<vector<int>>& grid)
-    {
-    queue<pair<int, int>> rotten;
-        int r = grid.size(), c = grid[0].size(), fresh = 0, t = 0;
-        for(int i = 0; i < r; ++i){
-            for(int j = 0; j < c; ++j){
-                if(grid[i][j] == 2) rotten.push({i, j});
-                else if(grid[i][j] == 1) fresh++;
-            }
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n = grid.size();
+      int m = grid[0].size();
+
+      // store {{row, column}, time}
+      queue < pair < pair < int, int > , int >> q;
+      int vis[n][m];
+      int cntFresh = 0;
+      for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+          // if cell contains rotten orange
+          if (grid[i][j] == 2) {
+            q.push({{i, j}, 0}); 
+            // mark as visited (rotten) in visited array
+            vis[i][j] = 2;
+          }
+          // if not rotten
+          else {
+            vis[i][j] = 0;
+          }
+          // count fresh oranges
+          if (grid[i][j] == 1) cntFresh++;
         }
+      }
+
+      int tm = 0;
+      // delta row and delta column
+      int drow[] = {-1, 0, +1, 0};
+      int dcol[] = {0, 1, 0, -1}; 
+      int cnt = 0;
+    int t;
+      // bfs traversal (until the queue becomes empty)
+      while (!q.empty()) {
+        int r = q.front().first.first;
+        int c = q.front().first.second;
+         t = q.front().second;
         
-        while(!rotten.empty()){
-            int num = rotten.size();
-            for(int i = 0; i < num; ++i){
-                int x = rotten.front().first, y = rotten.front().second;
-                rotten.pop();
-                if(x > 0 && grid[x-1][y] == 1){ grid[x-1][y] = 2; fresh--; rotten.push({x-1, y});};
-                if(y > 0 && grid[x][y-1] == 1){ grid[x][y-1] = 2; fresh--; rotten.push({x, y-1});};
-                if(x < r-1 && grid[x+1][y] == 1){ grid[x+1][y] = 2; fresh--; rotten.push({x+1, y});};
-                if(y < c-1 && grid[x][y+1] == 1){ grid[x][y+1] = 2; fresh--; rotten.push({x, y+1});};
-            }
-          if(!rotten.empty())   t++;
+        q.pop();
+        // exactly 4 neighbours 
+        for (int i = 0; i < 4; i++) {
+          // neighbouring row and column
+          int nrow = r + drow[i];
+          int ncol = c + dcol[i];
+          // check for valid cell and 
+          // then for unvisited fresh orange
+          if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m &&
+            vis[nrow][ncol] == 0 && grid[nrow][ncol] == 1) {
+            // push in queue with timer increased
+             q.push({{nrow, ncol}, t + 1}); 
+            // mark as rotten
+            vis[nrow][ncol] = 2;
+            cnt++;
+          }
         }
-        return (fresh == 0) ? t : -1;
+      }
+
+      // if all oranges are not rotten
+      if (cnt != cntFresh) return -1;
+
+      return t;
     }
 };
