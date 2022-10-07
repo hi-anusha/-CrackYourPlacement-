@@ -1,22 +1,18 @@
-class Solution {         //brute force - O(NlogN)
+class Solution {
 public:
     int findDuplicate(vector<int>& nums) 
     {
-         int slow=nums[0];
-        int fast=nums[0];
-        do
+        int n=nums.size();
+        vector<int> freq(n+1,0);
+        for(int i=0;i<n;i++)
         {
-            slow=nums[slow];
-            fast=nums[nums[fast]];
-        } while(nums[slow]!=nums[fast]);
-            
-         slow=nums[0];
-        while(slow!=fast)
-        {
-            slow=nums[slow];
-            fast=nums[fast];
+            freq[nums[i]]++;
+            if(freq[nums[i]]>1)
+                return nums[i];
         }
         
-        return slow;
+        
+        
+        return -1;
     }
 };
