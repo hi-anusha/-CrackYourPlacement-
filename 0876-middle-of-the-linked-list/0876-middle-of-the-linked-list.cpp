@@ -20,7 +20,7 @@ public:
             p=p->next;
             x++;
         }
-        while(head && y!=ceil(x/2))
+        while(head && head->next && y!=ceil(x/2))
         {
             head=head->next;
             y++;
