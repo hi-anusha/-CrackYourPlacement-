@@ -10,46 +10,24 @@
  */
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n)
-    {
-        struct ListNode* d=head;
-        struct ListNode* temp=head;
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        struct ListNode *f = head, *s= head;
         int x=0;
-        while(d!=NULL)
+        while(x!=n)
         {
-            d=d->next;
+            f=f->next;
             x++;
         }
-        if(x==1)
+        if (!f) return head->next;
+       // struct ListNode* s=head;
+        while(f->next!=NULL)
         {
-            delete(head);
-            return NULL;
+            s=s->next;
+            f=f->next;
         }
         
-        int z=(x-n);
-        struct ListNode* dd=head;
-        
-         if(x == n){
-            head = head->next;
-            return head;
-        }
-
-        
-        x=0;
-        
-      
-        while(x!=z)
-        {
-            dd=temp;
-            temp=temp->next;
-            x++;
-        }
-        
-        dd->next = temp->next;
-        delete(temp); 
-        
-        
-        
+        s->next=s->next->next;
+       
         return head;
         
     }
