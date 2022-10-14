@@ -12,26 +12,21 @@ class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) 
     {
-        if(head->next==NULL || head==NULL)
+        if(head==NULL || head->next==NULL)
             return NULL;
-            
-        struct ListNode* h=head;
-        int c=0;
-        while(h!=NULL)
+        struct ListNode* s=head;
+        struct ListNode* f=head->next->next;
+        struct ListNode* temp=NULL;
+        
+        while(f && f->next)
         {
-            c++;
-            h=h->next;
-        }
-        int y=0;
-        struct ListNode* temp=head;
-        while(y!=(c/2)-1)
-        {
-            temp=temp->next;
-            y++;
+          //  temp=s;
+            s=s->next;
+            f=f->next->next;
         }
         
-        temp->next=temp->next->next;
+        s->next=s->next->next;
+        
         return head;
-        
     }
 };
